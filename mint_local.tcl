@@ -3,8 +3,8 @@
 #   Program:    modeller interface
 #   File:       local.tcl
 #   
-#   Version:    V1.2
-#   Date:       07.11.95
+#   Version:    V1.3
+#   Date:       10.11.95
 #   Function:   Set up local stuff for this installation of Modeller
 #   
 #   Copyright:  (c) Dr. Andrew C. R. Martin 1995
@@ -52,6 +52,7 @@
 #                  the academic version)
 #   V1.2  07.11.95 Changed environment variable to MINTDIR to avoid 
 #                  clashes with MODELLER
+#   V1.3  10.11.95 Skipped
 #
 #*************************************************************************
 # Set the names of the programs to run
@@ -64,8 +65,8 @@ set pdbseg   "$env(MINTDIR)/pdb2seg"
 # Data directories
 # ----------------
 set pdbdir     /data/pdb/
-set pdbext     .pdb
-set pdbprep    p
+set pdbext     .ent
+set pdbprep    pdb
 
 #########################################################################
 # Set the names of the routines within MODELLER to do the modelling

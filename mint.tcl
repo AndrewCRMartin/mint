@@ -4,8 +4,8 @@
 #   Program:    MINT (Modeller INTerface)
 #   File:       mint.tcl
 #   
-#   Version:    V1.2
-#   Date:       07.11.95
+#   Version:    V1.3
+#   Date:       10.11.95
 #   Function:   Write a control file for Modeller
 #   
 #   Copyright:  (c) Dr. Andrew C. R. Martin 1995
@@ -56,7 +56,7 @@
 #                  alignment.
 #   V1.2  07.11.95 Changed environment variable to MINTDIR to avoid 
 #                  clashes with MODELLER
-#
+#   V1.3  10.11.95 Added the advanced options window
 #
 #*************************************************************************
 
@@ -206,7 +206,7 @@ proc ExitSpecAlign { } {
 ##########################################################################
 # proc Options
 # ------------
-# Display the options window for setting advanced items
+# Display the options window for setting system options
 # 23.08.95 Original    By: ACRM
 #
 proc Options {{w .optwindow}} {
@@ -263,6 +263,39 @@ proc Options {{w .optwindow}} {
 
 
 ##########################################################################
+# proc AdvancedOptions
+# --------------------
+# Display the options window for setting advanced items
+# 10.11.95 Original    By: ACRM
+#
+proc AdvancedOptions {{w .optwindow}} {
+    global hetatm water hydrogens
+    global EntryColour ActiveColour
+
+    toplevel $w
+
+    wm title $w "Modeller Advanced Options"
+    wm iconname $w "Modeller Advanced"
+
+    # Create three check boxes for hetatm, water and hydrogens
+    checkbutton $w.hetatm    -variable hetatm    -relief flat \
+            -text "Include hetero atoms"
+    checkbutton $w.water     -variable water     -relief flat \
+            -text "Include waters"
+    checkbutton $w.hydrogens -variable hydrogens -relief flat \
+            -text "Include hydrogens"
+
+    # Note we need to use the new-style packer command here to anchor
+    # these to the west side
+    pack $w.hetatm $w.water $w.hydrogens -side top -anchor w -pady 4 
+
+    # Finally a button to exit the window
+    button $w.quit -text "Exit" -command "destroy $w"
+    pack append $w $w.quit {top fillx}
+}
+
+
+##########################################################################
 # proc MainHelp
 # -------------
 # Provide help text for the main window
@@ -306,6 +339,7 @@ proc MainHelp {{w .help}} {
 #  22.08.95 Original    By: ACRM
 #  24.08.95 Imports seqname rather than calculating internally
 #  24.10.95 Imports names of modeller routines
+#  10.11.95 Added writing of advanced options
 #
 proc WriteControl filename {
     #  Reference global variables
@@ -313,6 +347,7 @@ proc WriteControl filename {
     global templatelist pirfile seqformat segfile seqname
     global method alnfile alnseqid alntype nmodel
     global routine_homol routine_fhomol
+    global hetatm water hydrogens
 
     #  Open the file
     set file [open $filename w]
@@ -335,6 +370,24 @@ proc WriteControl filename {
     puts -nonewline $file "SET KNOWNS = "
     foreach code $templatelist {
         puts -nonewline $file [format "'%s' " $code]
+    }
+    puts $file " "
+
+    # Advanced options
+    if {$hetatm == 1} {
+        puts $file "SET HETATM_IO = on"
+    } else {
+        puts $file "SET HETATM_IO = off"
+    }
+    if {$water == 1} {
+        puts $file "SET WATER_IO = on"
+    } else {
+        puts $file "SET WATER_IO = off"
+    }
+    if {$hydrogens == 1} {
+        puts $file "SET HYDROGEN_IO = on"
+    } else {
+        puts $file "SET HYDROGEN_IO = off"
     }
     puts $file " "
 
@@ -364,11 +417,12 @@ proc WriteControl filename {
 #   -----------
 #   Initialise the window manager, set up the name bar, etc.
 #
-#   22.08.94 Original   By: ACRM
-#   27.01.95 V1.1
+#   22.08.95 Original   By: ACRM
+#   24.10.95 V1.1
+#   10.11.95 V1.3
 #
 proc InitWM { } {
-    wm title . "Modeller Inteface V1.1 (c) 1995, Dr. Andrew C.R. \
+    wm title . "Modeller Inteface V1.3 (c) 1995, Dr. Andrew C.R. \
 Martin, UCL"
     wm iconname . "Modeller"
 }
@@ -380,16 +434,21 @@ Martin, UCL"
 #   Initialise all variables
 #
 #   22.08.95 Original   By: ACRM
+#   10.11.95 Added hetatm, water and hydrogens
 #
 proc InitVariables { } {
     #  Reference global variables
     global refinement nmodel
     global method alntype
+    global hetatm water hydrogens
 
     set refinement refine
     set nmodel     1
     set method     full
     set alntype    PIR
+    set hetatm     0
+    set water      0
+    set hydrogens  0
 }
 
 
@@ -564,6 +623,8 @@ proc BuildMedium { } {
 # -----------------
 # Build the options section of the main window
 # 22.08.95 Original    By: ACRM
+# 10.11.95 Changed 'Options' button to 'System'
+#          Added 'Advanced' button
 #
 proc BuildOptions { } {
     global AdvColour ActiveColour
@@ -574,6 +635,13 @@ proc BuildOptions { } {
             -activebackground $ActiveColour 
 
     pack append .options .options.specify {left expand pady 10}
+
+    button .options.advanced -text "Advanced" \
+            -command "AdvancedOptions" \
+            -width 14 -height 2  \
+            -activebackground $ActiveColour 
+
+    pack append .options .options.advanced {left expand pady 10}
 
     button .options.options -text "Options" \
             -command "Options" \
