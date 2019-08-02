@@ -3,11 +3,11 @@
 #   Program:    modeller interface
 #   File:       local.tcl
 #   
-#   Version:    V1.3
-#   Date:       10.11.95
+#   Version:    V3.0
+#   Date:       03.10.96
 #   Function:   Set up local stuff for this installation of Modeller
 #   
-#   Copyright:  (c) Dr. Andrew C. R. Martin 1995
+#   Copyright:  (c) Dr. Andrew C. R. Martin 1995-6
 #   Author:     Dr. Andrew C. R. Martin
 #   Address:    Biomolecular Structure & Modelling Unit,
 #               Department of Biochemistry & Molecular Biology,
@@ -53,12 +53,14 @@
 #   V1.2  07.11.95 Changed environment variable to MINTDIR to avoid 
 #                  clashes with MODELLER
 #   V1.3  10.11.95 Skipped
+#   V2.0           SKIPPED
+#   V3.0  03.10.96 New for Modeller-3
 #
 #*************************************************************************
 # Set the names of the programs to run
 # ------------------------------------
 #set modeller "/usr/msi/quanta4.1/modeler/exec/runmod"
-set modeller "/usr/user/modeller/bin/mod12"
+set modeller "/home/bsm/martin/sg/bin/modeller3/bin/mod3"
 set pdbseg   "$env(MINTDIR)/pdb2seg"
 
 ##########################################################################

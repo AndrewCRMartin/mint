@@ -4,11 +4,11 @@
 #   Program:    MINT (Modeller INTerface)
 #   File:       mint.tcl
 #   
-#   Version:    V1.3
-#   Date:       10.11.95
+#   Version:    V3.0
+#   Date:       03.10.96
 #   Function:   Write a control file for Modeller
 #   
-#   Copyright:  (c) Dr. Andrew C. R. Martin 1995
+#   Copyright:  (c) Dr. Andrew C. R. Martin 1995-6
 #   Author:     Dr. Andrew C. R. Martin
 #   Address:    Biomolecular Structure & Modelling Unit,
 #               Department of Biochemistry & Molecular Biology,
@@ -57,6 +57,8 @@
 #   V1.2  07.11.95 Changed environment variable to MINTDIR to avoid 
 #                  clashes with MODELLER
 #   V1.3  10.11.95 Added the advanced options window
+#   V2.0  SKIPPED
+#   V3.0  03.10.96 New version for MODELLER-3 
 #
 #*************************************************************************
 
@@ -340,6 +342,7 @@ proc MainHelp {{w .help}} {
 #  24.08.95 Imports seqname rather than calculating internally
 #  24.10.95 Imports names of modeller routines
 #  10.11.95 Added writing of advanced options
+#  03.10.96 Changed refinement options for Modeller-3
 #
 proc WriteControl filename {
     #  Reference global variables
@@ -358,7 +361,16 @@ proc WriteControl filename {
     puts $file "INCLUDE"
     puts $file [format "SET ATOM_FILES_DIRECTORY = './:%s'" $pdbdir]
     puts $file [format "SET PDB_EXT = '%s'" $pdbext]
-    puts $file [format "SET FINISH_METHOD = '%s'" $refinement]
+#    puts $file [format "SET FINISH_METHOD = '%s'" $refinement]
+
+    if {$refinement == 2} {
+        puts $file "SET MD_LEVEL = 'refine2'"
+    } elseif {$refinement == 1} {
+        puts $file "SET MD_LEVEL = 'refine1'"
+    } elseif {$refinement == 0} {
+        puts $file "SET MD_LEVEL = 'nothing'"
+    }
+
     puts $file "SET STARTING_MODEL = 1"
     puts $file [format "SET ENDING_MODEL = %d" $nmodel]
     if {$nmodel == 1} {
@@ -420,9 +432,10 @@ proc WriteControl filename {
 #   22.08.95 Original   By: ACRM
 #   24.10.95 V1.1
 #   10.11.95 V1.3
+#   03.10.96 V3.0
 #
 proc InitWM { } {
-    wm title . "Modeller Inteface V1.3 (c) 1995, Dr. Andrew C.R. \
+    wm title . "Modeller Inteface V3.0 (c) 1995-6, Dr. Andrew C.R. \
 Martin, UCL"
     wm iconname . "Modeller"
 }
@@ -435,6 +448,7 @@ Martin, UCL"
 #
 #   22.08.95 Original   By: ACRM
 #   10.11.95 Added hetatm, water and hydrogens
+#   03.10.96 Changed default refinement for Modeller-3
 #
 proc InitVariables { } {
     #  Reference global variables
@@ -442,7 +456,7 @@ proc InitVariables { } {
     global method alntype
     global hetatm water hydrogens
 
-    set refinement refine
+    set refinement 3
     set nmodel     1
     set method     full
     set alntype    PIR
@@ -579,6 +593,7 @@ proc BuildBasic { } {
 # ----------------
 # Build the medium-level options section of the main window
 # 22.08.95 Original    By: ACRM
+# 03.10.96 Changed refinement options for Modeller-3
 #
 proc BuildMedium { } {
     global refinement nmodel
@@ -599,18 +614,21 @@ proc BuildMedium { } {
 
     # Radio buttons for refinement method
     frame .medium.refine -bd 1m
-    radiobutton .medium.refine.full -text Full -variable refinement \
-            -value refine -anchor w
-    radiobutton .medium.refine.local -text Local -variable refinement \
-            -value local -anchor w
+    radiobutton .medium.refine.vfast -text "Very Fast MD" -variable refinement \
+            -value 3 -anchor w
+    radiobutton .medium.refine.fast -text "Fast MD" -variable refinement \
+            -value 2 -anchor w
+    radiobutton .medium.refine.thorough -text "Thorough MD" -variable refinement \
+            -value 1 -anchor w
     radiobutton .medium.refine.none -text None -variable refinement \
-            -value nothing -anchor w
+            -value 0 -anchor w
     label .medium.refine.label -text "Refinement:"
     # Attach to frame
     pack append .medium.refine \
             .medium.refine.label {top fillx} \
-            .medium.refine.full {top fillx} \
-            .medium.refine.local {top fillx} \
+            .medium.refine.vfast {top fillx} \
+            .medium.refine.fast {top fillx} \
+            .medium.refine.thorough {top fillx} \
             .medium.refine.none {top fillx}
     # Attach to main frame
     pack append .medium .medium.refine {right filly padx 50m}
