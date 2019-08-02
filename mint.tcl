@@ -4,11 +4,11 @@
 #   Program:    MINT (Modeller INTerface)
 #   File:       mint.tcl
 #   
-#   Version:    V3.2
-#   Date:       24.11.06
+#   Version:    V3.3
+#   Date:       02.08.19
 #   Function:   Write a control file for Modeller
 #   
-#   Copyright:  (c) Dr. Andrew C. R. Martin 1995-2006
+#   Copyright:  (c) Dr. Andrew C. R. Martin 1995-2019
 #   Author:     Dr. Andrew C. R. Martin
 #   Address:    Biomolecular Structure & Modelling Unit,
 #               Department of Biochemistry & Molecular Biology,
@@ -62,6 +62,7 @@
 #   V3.2  24.11.06 Refinement levels in MODELLER8 have changed from
 #                  nothing/refine1/refine2 to nothing/refine1/refine_2
 #                  Fix by Vincenzo De Leo <Vincenzo.Deleo@ca.infn.it>
+#   V3.3  02.08.19 Fixes to pdb2seg for new BiopLib
 #
 #*************************************************************************
 
@@ -439,9 +440,10 @@ proc WriteControl filename {
 #   10.11.95 V1.3
 #   03.10.96 V3.0
 #   24.11.06 V3.2
+#   02.08.19 V3.3
 #
 proc InitWM { } {
-    wm title . "Modeller Inteface V3.2 (c) 1995-2006, Dr. Andrew C.R. \
+    wm title . "Modeller Inteface V3.3 (c) 1995-2019, Dr. Andrew C.R. \
 Martin, UCL"
     wm iconname . "Modeller"
 }

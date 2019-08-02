@@ -2,7 +2,13 @@ CC     = cc
 OFILES = pdb2seg.o
 LFILES = bioplib/ReadPDB.o bioplib/fsscanf.o bioplib/FindNextResidue.o \
          bioplib/padterm.o bioplib/chindex.o  bioplib/ResolPDB.o \
-         bioplib/PDB2Seq.o bioplib/ReadPIR.o bioplib/throne.o
+         bioplib/PDB2Seq.o bioplib/ReadPIR.o bioplib/throne.o \
+         bioplib/hash.o bioplib/prime.o bioplib/StoreString.o \
+         bioplib/stringutil.o bioplib/GetWord.o bioplib/array2.o \
+         bioplib/FreeStringList.o bioplib/WritePDB.o \
+         bioplib/PDBHeaderInfo.o bioplib/strcatalloc.o bioplib/stringcat.o \
+         bioplib/GetPDBChainLabels.o bioplib/BuildConect.o \
+         bioplib/IndexPDB.o bioplib/FindResidue.o
 
 all : pdb2seg
 	

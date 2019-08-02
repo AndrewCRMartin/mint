@@ -3,22 +3,20 @@
    Program:    pdb2seg
    File:       pdb2seg.c
    
-   Version:    V1.3
-   Date:       20.09.01
+   Version:    V1.4
+   Date:       02.08.19
    Function:   Create a seg alignment file for Modeller from a set of
                PDB codes
    
-   Copyright:  (c) Dr. Andrew C. R. Martin 1995-2001
-   Author:     Dr. Andrew C. R. Martin
+   Copyright:  (c) Dr. Andrew C. R. Martin 1995-2019
+   Author:     Prof. Andrew C. R. Martin
    Address:    Biomolecular Structure & Modelling Unit,
                Department of Biochemistry & Molecular Biology,
                University College,
                Gower Street,
                London.
                WC1E 6BT.
-   Phone:      (Home) +44 (0)1372 275775
-               (Work) +44 (0)171 387 7050 X 3284
-   EMail:      INTERNET: martin@biochem.ucl.ac.uk
+   EMail:      andrew@bioinf.org.uk
                
 **************************************************************************
 
@@ -55,6 +53,7 @@
    V1.2  22.10.96 Removes : from COMPND fields as these mess up the
                   fields in the .seg file
    V1.3  20.09.01 Initialise nres and nchain variables
+   V1.4  02.08.19 Updated for new Bioplib
 
 *************************************************************************/
 /* Includes
@@ -225,7 +224,7 @@ void ReadPDBHeader(FILE *fp, char *name, char *source,
    }
    
    rewind(fp);
-   if(!GetResolPDB(fp, resolution, rfactor, type))
+   if(!blGetResolPDB(fp, resolution, rfactor, type))
    {
       *resolution = (REAL)(-1.0);
       *rfactor    = (REAL)(-1.0);
@@ -386,7 +385,7 @@ void ProcessFile(FILE *out, char *pdbdir, char *pdbprep, char *pdbext,
    /* Read the PDB file and find the appropriate chain if specified,
       freeing the rest 
    */
-   if((pdb = ReadPDBAtoms(in, &natoms))==NULL)
+   if((pdb = blReadPDBAtoms(in, &natoms))==NULL)
    {
       fprintf(stderr,"No memory for PDB linked list reading %s\n",
               filename);
@@ -402,7 +401,7 @@ void ProcessFile(FILE *out, char *pdbdir, char *pdbprep, char *pdbext,
    if(gFullSeq)
    {
       /* Get the sequence out of the PDB linked list                    */
-      if((seq = PDB2Seq(pdb))==NULL)
+      if((seq = blPDB2Seq(pdb))==NULL)
       {
          FREELIST(pdb, PDB);
          fprintf(stderr,"No memory for sequence in PDB file %s\n", 
@@ -562,7 +561,7 @@ void ProcessPIRFile(FILE *out, char *pirfile)
       return;
    }
    
-   nchain = ReadPIR(fp, FALSE, seqs, MAXCHAIN, NULL, &punct, &error);
+   nchain = blReadPIR(fp, FALSE, seqs, MAXCHAIN, NULL, &punct, &error);
 
    strcpy(idbuff, pirfile);
    for(id=idbuff;(*id)!='\0';)

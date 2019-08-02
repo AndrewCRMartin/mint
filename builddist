@@ -3,8 +3,8 @@
 # of a distribution version of QTree
 # V1.0  21.12.94 By: ACRM
 
-BIOP=/home/bsm/martin/bioplib/src
-MINT=MintV1.0
+BIOP=${HOME}/bioplib/src
+MINT=MintV3.3
 MINTBIOP=$MINT/bioplib
 
 # Create subdirectories
@@ -33,18 +33,37 @@ cp ${BIOP}/seq.h        $MINTBIOP
 cp ${BIOP}/general.h    $MINTBIOP
 cp ${BIOP}/fsscanf.h    $MINTBIOP
 cp ${BIOP}/port.h       $MINTBIOP
+cp ${BIOP}/hash.h       $MINTBIOP
+cp ${BIOP}/deprecated.h $MINTBIOP
+cp ${BIOP}/MathUtil.h   $MINTBIOP
+cp ${BIOP}/array.h      $MINTBIOP
 
-cp ${BIOP}/ReadPDB.c    $MINTBIOP
-cp ${BIOP}/fsscanf.c    $MINTBIOP
-cp ${BIOP}/padterm.c    $MINTBIOP
-cp ${BIOP}/chindex.c    $MINTBIOP
-cp ${BIOP}/ResolPDB.c   $MINTBIOP
-cp ${BIOP}/PDB2Seq.c    $MINTBIOP
-cp ${BIOP}/ReadPIR.c    $MINTBIOP
-cp ${BIOP}/throne.c     $MINTBIOP
-cp ${BIOP}/FindNextResidue.c     $MINTBIOP
+cp ${BIOP}/FindNextResidue.c   $MINTBIOP
+cp ${BIOP}/ReadPDB.c           $MINTBIOP
+cp ${BIOP}/fsscanf.c           $MINTBIOP
+cp ${BIOP}/padterm.c           $MINTBIOP
+cp ${BIOP}/chindex.c           $MINTBIOP
+cp ${BIOP}/ResolPDB.c          $MINTBIOP
+cp ${BIOP}/PDB2Seq.c           $MINTBIOP
+cp ${BIOP}/ReadPIR.c           $MINTBIOP
+cp ${BIOP}/throne.c            $MINTBIOP
+cp ${BIOP}/hash.c              $MINTBIOP
+cp ${BIOP}/prime.c             $MINTBIOP
+cp ${BIOP}/StoreString.c       $MINTBIOP
+cp ${BIOP}/stringutil.c        $MINTBIOP
+cp ${BIOP}/GetWord.c           $MINTBIOP
+cp ${BIOP}/array2.c            $MINTBIOP
+cp ${BIOP}/FreeStringList.c    $MINTBIOP
+cp ${BIOP}/WritePDB.c          $MINTBIOP
+cp ${BIOP}/PDBHeaderInfo.c     $MINTBIOP
+cp ${BIOP}/strcatalloc.c       $MINTBIOP
+cp ${BIOP}/stringcat.c         $MINTBIOP
+cp ${BIOP}/GetPDBChainLabels.c $MINTBIOP
+cp ${BIOP}/BuildConect.c       $MINTBIOP
+cp ${BIOP}/IndexPDB.c          $MINTBIOP
+cp ${BIOP}/FindResidue.c       $MINTBIOP
 
-cp ${BIOP}/COPYING.DOC  $MINTBIOP
+cp ${BIOP}/../COPYING.DOC      $MINTBIOP
 
 # Copy source code into directory
 cp *.c *.tcl            $MINT
