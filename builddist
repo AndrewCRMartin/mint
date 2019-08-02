@@ -1,0 +1,68 @@
+#!/bin/sh
+# Short script to copy the required files from bioplib for creation
+# of a distribution version of QTree
+# V1.0  21.12.94 By: ACRM
+
+BIOP=/home/bsm/martin/bioplib/src
+MINT=MintV1.0
+MINTBIOP=$MINT/bioplib
+
+# Create subdirectories
+if [ -d $MINT ]
+then
+   echo "Got MINT directory"
+else
+   echo "Creating MINT directory"
+   mkdir $MINT
+fi
+
+if [ -d $MINTBIOP ] 
+then
+   echo "Got bioplib sub-directory"
+else
+   echo "Creating bioplib sub-directory"
+   mkdir $MINTBIOP
+fi
+
+# Copy bioplib files into directory
+cp ${BIOP}/macros.h     $MINTBIOP
+cp ${BIOP}/MathType.h   $MINTBIOP
+cp ${BIOP}/SysDefs.h    $MINTBIOP
+cp ${BIOP}/pdb.h        $MINTBIOP
+cp ${BIOP}/seq.h        $MINTBIOP
+cp ${BIOP}/general.h    $MINTBIOP
+cp ${BIOP}/fsscanf.h    $MINTBIOP
+cp ${BIOP}/port.h       $MINTBIOP
+
+cp ${BIOP}/ReadPDB.c    $MINTBIOP
+cp ${BIOP}/fsscanf.c    $MINTBIOP
+cp ${BIOP}/padterm.c    $MINTBIOP
+cp ${BIOP}/chindex.c    $MINTBIOP
+cp ${BIOP}/ResolPDB.c   $MINTBIOP
+cp ${BIOP}/PDB2Seq.c    $MINTBIOP
+cp ${BIOP}/ReadPIR.c    $MINTBIOP
+cp ${BIOP}/throne.c     $MINTBIOP
+cp ${BIOP}/FindNextResidue.c     $MINTBIOP
+
+cp ${BIOP}/COPYING.DOC  $MINTBIOP
+
+# Copy source code into directory
+cp *.c *.tcl            $MINT
+
+# Copy documentation into directory
+cp INSTALL              $MINT
+cp mint.tex             $MINT
+cp mint.pdf             $MINT
+cp COPYING.DOC          $MINT
+
+# Copy distribution specials into directory
+cp makefile.distrib     $MINT/Makefile
+
+# Tar up the distribution directory
+tar -cvf ${MINT}.tar $MINT
+gzip ${MINT}.tar
+
+# and finally delete the directory
+/bin/rm -rf $MINT
+
+

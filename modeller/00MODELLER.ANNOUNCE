@@ -1,0 +1,119 @@
+
+                             ANNOUNCEMENT
+
+        A NEW VERSION OF MODELLER-4, A PROGRAM FOR COMPARATIVE 
+                  PROTEIN STRUCTURE MODELING, IS RELEASED.
+
+
+Please see the README file below for how to get the program.
+
+New features include faster execution, a better manual, more robust
+modeling of protein structure. A Linux version is also available.
+
+Current users can use the same keyword as for version 3 (you can find 
+it in your .cshrc file). There is no need to resend the licensing 
+agreement.
+
+Best Wishes, Andrej Sali
+
+-------------------------------------------------------------------------------
+
+A review of CASP2 that qualifies MODELLER: R.L. Dunbrack~Jr., D.L. Gerloff, 
+M. Bower, X. Chen, O. Lichtarge & F.E. Cohen. Meeting review: the second 
+meeting on the critical assessment of techniques for protein structure 
+prediction (CASP2), Asilomar California, December 13-16, 1996. Folding & 
+Design 2, R27-R42, 1997.
+
+-------------------------------------------------------------------------------
+
+
+                                 MODELLER
+      PROTEIN STRUCTURE MODELLING BY SATISFACTION OF SPATIAL RESTRAINTS
+                      MODELLER 4, June 15, 1997
+                                                                 
+                    Copyright(c) 1989-1997 Andrej Sali           
+                            All Rights Reserved                  
+
+        Written by Andrej Sali, Roberto Sanchez, and Azat Badretdinov
+                   Rockefeller University, New York, USA
+                     Harvard University, Cambridge, USA
+                 Imperial Cancer Research Fund, London, UK       
+             Birkbeck College, University of London, London, UK  
+
+Andrej Sali, The Rockefeller University, 1230 York Avenue, New York,
+NY 10021, USA. Tel: +1-212-327-7550. Fax: +1-212-327-7540 (or 7974).
+E-mail: sali@rockvax.rockefeller.edu. URL: http://guitar.rockefeller.edu/.
+
+** DESCRIPTION:
+
+MODELLER is most frequently used for homology or comparative modeling
+of protein three-dimensional structure: the user provides an alignment
+of a sequence to be modeled with known related structures and MODELLER
+will automatically calculate a full-atom model. More generally, MODELLER 
+models protein 3D structure by satisfaction of spatial restraints 
+(A. Sali & T.L. Blundell. J.Mol.Biol. 234, 779-815, 1993). In principle, 
+the restraints can be derived from a number of different sources. These 
+include homologous structures (comparative modeling), NMR experiments 
+(NMR refinement), rules of secondary structure packing (combinatorial 
+modeling), cross-linking experiments, fluorescence spectroscopy, image
+reconstruction in electron microscopy, site-directed mutagenesis, 
+intuition, residue-residue and atom-atom potentials of mean force, etc. 
+The output of MODELLER is a 3D structure of a protein that satisfies 
+these restraints as well as possible. The optimization is carried out 
+by the variable target function procedure employing methods of conjugate 
+gradients and molecular dynamics with simulated annealing. MODELLER
+can also do several other tasks, including multiple comparison of protein
+sequences and/or structures, clustering, and searching of sequence 
+databases. The program is described in a 150-page manual. MODELLER is 
+written in Fortran and is meant to run on a UNIX system.
+
+** DISTRIBUTION:
+
+MODELLER is available free of charge to academic non-profit institutions.
+
+First, please use the anonymous ftp account on guitar.rockefeller.edu
+(IP 129.85.13.198) to copy at least the following files from the 
+pub/modeller directory to your computer: the license form (PostScript 
+file academic-license.ps), the distribution file that contains the data 
+files necessary to run MODELLER (modeller4-data.tar.Z), and an executable 
+for each machine type that you want to use (described in file INSTALLATION).
+Next, please sign, and mail or fax the license form to Andrej Sali. You 
+will then receive the key (MODELLER_KEY) that has to be assigned to the 
+environment variable KEY_MODELLER4 in your login script (.cshrc). See file 
+INSTALLATION for installation instructions. 
+
+There is also a MODELLER home page on World Wide Web at URL 
+http://guitar.rockefeller.edu that can be used to ftp the program and 
+view the manual. 
+
+A graphical interface to MODELLER is available as part of QUANTA, InsightII,
+and WEBLab, interactive molecular modeling programs with many tools for protein 
+modeling and structural analysis. QUANTA, InsightII, and WEBLab facilitate 
+preparation of input files for MODELLER (eg, alignment file) as well as an 
+analysis of results (eg, an evaluation of the models). If you are interested in 
+these programs, please contact Ms. Brenda Pfeiffer, Molecular Simulations Inc.,
+9685 Scranton Road, San Diego, CA  92121-3752, tel: +1-619-546-5319,
+fax: +1-619-458-0136, email: blp@msi.com.
+
+
+** CONTENTS:
+
+src\               sources or executables for MODELLER;
+modlib\            libraries and data files for the programs;
+scripts\           script files used to compile and use MODELLER;
+doc\               MODELLER documentation;
+Makefile           Makefile for compiling/installing MODELLER modules; 
+modeller4.README   this file;
+INSTALLATION       how to install MODELLER;
+Install            compilation and installation script relying on Makefile;
+examples\          examples;
+
+-------------------------------------------------------------------------------
+
+Posted to:
+
+bionet.molec-model bionet.software bionet.structural-nmr bionet.xtallography 
+bionet.software.source bionet.molbio.proteins
+
+-------------------------------------------------------------------------------
+

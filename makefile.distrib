@@ -1,0 +1,17 @@
+CC     = cc
+OFILES = pdb2seg.o
+LFILES = bioplib/ReadPDB.o bioplib/fsscanf.o bioplib/FindNextResidue.o \
+         bioplib/padterm.o bioplib/chindex.o  bioplib/ResolPDB.o \
+         bioplib/PDB2Seq.o bioplib/ReadPIR.o bioplib/throne.o
+
+all : pdb2seg
+	
+
+pdb2seg :  $(OFILES) $(LFILES)
+	$(CC) -o pdb2seg $(OFILES) $(LFILES) -lm
+
+.c.o  :
+	$(CC) -o $@ -c $<
+   
+clean :
+	\rm $(OFILES) $(LFILES)

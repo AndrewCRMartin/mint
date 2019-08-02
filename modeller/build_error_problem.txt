@@ -1,0 +1,106 @@
+Re: Hydrogen problems with Modeller4
+
+  ------------------------------------------------------------------------
+
+From: sali@piano (Andrej Sali)
+Subject: Re: Hydrogen problems with Modeller4
+Date: Mon, 26 Jan 1998 08:16:28 -0500 (EST)
+
+Next Article (by Author): O2 IRIX 6.3 sali@piano (Andrej Sali)
+Previous Article (by Author): Libraries needed for MODELLER on SUN
+sali@piano (Andrej Sali)
+Top of Thread: Hydrogen problems with Modeller4 Brian Marsden
+Next in Thread: Re: Hydrogen problems with Modeller4 Azat Badretdinov
+Articles sorted by: [Date] [Author] [Subject]
+
+  ------------------------------------------------------------------------
+
+In general, I found it better to put the initial coordinates
+for inserted atoms on a line connecting the two known endpoints
+of the insertion (with totally unreasonable stereochemistry),
+rather than in an extended conformation with ideal stereochemistry.
+But sometimes the opposite may be true. It is the question of
+the optimizer in the end ...
+
+Best, Andrej
+
+>
+> > Dear Andrew and Brian!
+> >
+> > please replace BUILD_MODEL INITIALIZE_XYZ = off
+> > to  BUILD_MODEL INITIALIZE_XYZ = off, BUILD_METHOD =
+> > 'INTERNAL_COORDINATES'
+> >
+> > in file $MODINSTALL/scripts/__generate_model.top
+>                       ^^^^^^^
+>                       bin    - not scripts
+>
+> >
+> > and
+> > SET TOPLIB = '${LIB}/top_allh.lib'
+> > in your .top file.
+> >
+> > Happy landings!
+> >
+> > Yours,
+> >
+> > Azat
+> >
+>
+> Excellent! That's certainly fixed it... But wouldn't this have been
+> a problem affecting everybody using Modeller for straightforward
+> homology modelling???
+>
+> I haven't used the SET TOPLIB as I was not reading hydrogens, so it
+> is taking the default SET TOPLIB = '${LIB}/top_heav.lib'
+> I was seeing the problem with this. As far as I can see it's not
+> really related to the hydrogens issue. My .top file was quite simply:
+>
+> INCLUDE
+> SET ATOM_FILES_DIRECTORY = './:/data/pdb/'
+> SET PDB_EXT = '.pdb'
+> SET STARTING_MODEL = 1
+> SET ENDING_MODEL = 1
+> SET DEVIATION = 0
+> SET KNOWNS = 'xyz'
+> SET HETATM_IO = off
+> SET WATER_IO = off
+> SET HYDROGEN_IO = off
+>
+> SET MD_LEVEL = 'refine1'
+>
+> SET ALIGNMENT_FORMAT = 'PIR'
+> SET SEQUENCE = 'abc'
+> SET ALNFILE = 'align.pir'
+> CALL ROUTINE = 'model'
+>
+>
+> Any thoughts???
+>
+> Andrew
+>
+>
+> ----------------------------------------------------------------------------
+> Dr. Andrew C.R. Martin                             University College London
+> EMAIL: (Work) martin@biochem.ucl.ac.uk    (Home) andrew@stagleys.demon.co.uk
+> URL:   http://www.biochem.ucl.ac.uk/~martin
+> Tel:   (Work) +44(0)171 419 3890                    (Home) +44(0)1372 275775
+>
+
+--
+--
+Andrej Sali, Assistant Professor
+The Rockefeller University, 1230 York Avenue, New York, NY 10021-6399
+tel +1 212 327 7550; lab +1 212 327 7206 ; fax +1 212 327 7540
+e-mail sali@rockvax.rockefeller.edu; http://guitar.rockefeller.edu
+
+  ------------------------------------------------------------------------
+
+Next Article (by Author): O2 IRIX 6.3 sali@piano (Andrej Sali)
+Previous Article (by Author): Libraries needed for MODELLER on SUN
+sali@piano (Andrej Sali)
+Top of Thread: Hydrogen problems with Modeller4 Brian Marsden
+Next in Thread: Re: Hydrogen problems with Modeller4 Azat Badretdinov
+Articles sorted by: [Date] [Author] [Subject]
+
+Go to LWGate Home Page.

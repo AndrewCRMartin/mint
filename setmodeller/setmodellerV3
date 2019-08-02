@@ -1,0 +1,23 @@
+# Customise these 2 for your site...
+# ----------------------------------
+# Root directory for installed MODELLER:
+setenv MODINSTALL /home/bsm/martin/sg/bin/modeller3
+# Directory in which MINT is installed
+setenv MINTDIR      '/home/bsm/martin/modeller'
+
+if (-e $MODINSTALL) then
+   # Root directory for the Protein DataBank (not essential, can be omitted):
+   setenv PDB /pdb
+
+   # MODELLER key. Change to the key provided by Andrej Sali:
+   setenv KEY ********
+
+   # Set MODELLER environment variables and update the command path:
+   if (-e $MODINSTALL/bin/setmodeller) source $MODINSTALL/bin/setmodeller
+
+   # Read modeller HTML docs using Mosaic
+   alias moddoc 'mosaic $MODINSTALL/doc/manual/manual.html'
+
+   # Alias for mint
+   alias  mint         $MINTDIR/mint.tcl
+endif

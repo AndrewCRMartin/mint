@@ -1,0 +1,74 @@
+To install MINT, proceed as follows:
+
+
+1. Unpack the archive into a new directory
+
+
+2. Create the environment variable MINTDIR to point to this directory.
+This should be done in your .cshrc or .profile file in your home
+directory or done system-wide with the rest of Modeller.
+For example, if you have unpacked the files into the directory:
+/usr/local/src/mint, you would use the following under the
+C-shell:
+
+setenv MINTDIR /usr/local/src/mint
+
+or, under Bourne-like shells:
+
+export MINTDIR=/usr/local/src/mint
+
+
+3. Edit the file mint_local.tcl such that the modeller variable is set
+to point to the Modeller executable. You should also alter the pdbdir,
+pdbext and pdbprep variables for the location of the PDB at your site.
+Note that the PDB directory must be specified with the trailing slash
+and the extension with the leading dot. For example, if you store PDB 
+files as /pdb/pdbXXXX.ent, you should set these as follows:
+
+set pdbdir      /pdb/
+set pdbext      .ent
+set pdbprep     pdb
+
+If you are using MINT with the academic version of Modeller, you should
+set the variable `routine_homol' to "model"; if you are using the MSI
+version which comes as an extension package for Quanta, you should set 
+this to "homol" (for some reason, MSI have changed the name of this
+macro).
+
+Currently, you shouldn't need to change the value of the
+`routine_fhomol' variable, but this may be changed should MSI (or
+Andrej Sali) decide to change the name of this macro.
+
+If desired, you can also change the button colours.
+
+
+4. If you do not have Tcl/Tk and the Wish shell installed, you
+should obtain and install them. If you do not keep the wish command
+in the directory /usr/local/bin, you should edit mint.tcl and
+change the first line accordingly.
+
+
+5. Compile the pdb2seg program by typing `make' at the Unix prompt.
+
+
+6. Create a link from mint.tcl to the command `mint' somewhere in 
+your path. For example:
+
+ln -s /usr/local/modeller/mint.tcl /usr/local/bin/mint 
+
+
+7. Run MINT by typing the command:
+
+mint
+
+
+
+
+
+
+Help on using MINT is available by clicking on the HELP buttons and
+by reading the documentation in LaTeX format (mint.tex) or PostScript
+format (mint.ps).
+
+
+
