@@ -1,14 +1,14 @@
-#!/usr/local/bin/wish -f
+#!/usr/bin/wish -f
 #*************************************************************************
 #
 #   Program:    MINT (Modeller INTerface)
 #   File:       mint.tcl
 #   
-#   Version:    V3.0
-#   Date:       03.10.96
+#   Version:    V3.1
+#   Date:       26.01.98
 #   Function:   Write a control file for Modeller
 #   
-#   Copyright:  (c) Dr. Andrew C. R. Martin 1995-6
+#   Copyright:  (c) Dr. Andrew C. R. Martin 1995-8
 #   Author:     Dr. Andrew C. R. Martin
 #   Address:    Biomolecular Structure & Modelling Unit,
 #               Department of Biochemistry & Molecular Biology,
@@ -59,6 +59,8 @@
 #   V1.3  10.11.95 Added the advanced options window
 #   V2.0  SKIPPED
 #   V3.0  03.10.96 New version for MODELLER-3 
+#   V3.1  26.01.98 Reads correct topology library when hydrogens switched
+#                  on. (N.B. Is MODELLER-4 compatible)
 #
 #*************************************************************************
 
@@ -343,6 +345,7 @@ proc MainHelp {{w .help}} {
 #  24.10.95 Imports names of modeller routines
 #  10.11.95 Added writing of advanced options
 #  03.10.96 Changed refinement options for Modeller-3
+#  26.01.98 Reads correct topology library if hydrogens switched on
 #
 proc WriteControl filename {
     #  Reference global variables
@@ -398,6 +401,7 @@ proc WriteControl filename {
     }
     if {$hydrogens == 1} {
         puts $file "SET HYDROGEN_IO = on"
+        puts $file "SET TOPLIB = '\${LIB}/top_allh.lib'"
     } else {
         puts $file "SET HYDROGEN_IO = off"
     }

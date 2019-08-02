@@ -59,14 +59,18 @@
 #*************************************************************************
 # Set the names of the programs to run
 # ------------------------------------
-#set modeller "/usr/msi/quanta4.1/modeler/exec/runmod"
-set modeller "/home/bsm/martin/sg/bin/modeller3/bin/mod3"
+if { {string length $env(mod)} > 0 } {
+   set modeller "$env(MODINSTALL)/bin/$env(mod)"
+}  else {
+   set modeller "/acrm/usr/local/apps/modeller6/bin/mod6v2"
+}
 set pdbseg   "$env(MINTDIR)/pdb2seg"
 
 ##########################################################################
 # Data directories
 # ----------------
-set pdbdir     /data/pdb/
+# NOTE! You must put a trailing slash on this line
+set pdbdir     /acrm/data/pdb/
 set pdbext     .ent
 set pdbprep    pdb
 
