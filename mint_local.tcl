@@ -3,8 +3,8 @@
 #   Program:    modeller interface
 #   File:       local.tcl
 #   
-#   Version:    V1.1
-#   Date:       24.10.95
+#   Version:    V1.2
+#   Date:       07.11.95
 #   Function:   Set up local stuff for this installation of Modeller
 #   
 #   Copyright:  (c) Dr. Andrew C. R. Martin 1995
@@ -50,13 +50,15 @@
 #   V1.1  24.10.95 Moved name of modeller routines here (homology
 #                  modelling has a different name in the MSI version c.f.
 #                  the academic version)
+#   V1.2  07.11.95 Changed environment variable to MINTDIR to avoid 
+#                  clashes with MODELLER
 #
 #*************************************************************************
 # Set the names of the programs to run
 # ------------------------------------
 #set modeller "/usr/msi/quanta4.1/modeler/exec/runmod"
 set modeller "/usr/user/modeller/bin/mod12"
-set pdbseg   "$env(MODELLER)/pdb2seg"
+set pdbseg   "$env(MINTDIR)/pdb2seg"
 
 ##########################################################################
 # Data directories

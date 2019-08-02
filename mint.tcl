@@ -4,8 +4,8 @@
 #   Program:    MINT (Modeller INTerface)
 #   File:       mint.tcl
 #   
-#   Version:    V1.1
-#   Date:       24.10.95
+#   Version:    V1.2
+#   Date:       07.11.95
 #   Function:   Write a control file for Modeller
 #   
 #   Copyright:  (c) Dr. Andrew C. R. Martin 1995
@@ -54,6 +54,8 @@
 #                  version c.f. the academic version.
 #                  The run name wasn't being set if we had specified an
 #                  alignment.
+#   V1.2  07.11.95 Changed environment variable to MINTDIR to avoid 
+#                  clashes with MODELLER
 #
 #
 #*************************************************************************
@@ -640,7 +642,7 @@ proc BuildWindowContents { } {
 ##########################################################################
 # Read local.tcl which defines stuff for this local setup
 #
-source "$env(MODELLER)/mint_local.tcl"
+source "$env(MINTDIR)/mint_local.tcl"
 
 # Initialise the window manager
 InitWM
