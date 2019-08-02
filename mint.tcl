@@ -4,8 +4,8 @@
 #   Program:    MINT (Modeller INTerface)
 #   File:       mint.tcl
 #   
-#   Version:    V1.0
-#   Date:       22.08.95
+#   Version:    V1.1
+#   Date:       24.10.95
 #   Function:   Write a control file for Modeller
 #   
 #   Copyright:  (c) Dr. Andrew C. R. Martin 1995
@@ -49,6 +49,12 @@
 #   Revision History:
 #   =================
 #   V1.0  23.08.95 Original
+#   V1.1  24.10.95 Moved name of modeller routines into mint_local since
+#                  homology modelling has a different name in the MSI 
+#                  version c.f. the academic version.
+#                  The run name wasn't being set if we had specified an
+#                  alignment.
+#
 #
 #*************************************************************************
 
@@ -297,12 +303,14 @@ proc MainHelp {{w .help}} {
 #
 #  22.08.95 Original    By: ACRM
 #  24.08.95 Imports seqname rather than calculating internally
+#  24.10.95 Imports names of modeller routines
 #
 proc WriteControl filename {
     #  Reference global variables
     global pdbdir refinement pdbext
     global templatelist pirfile seqformat segfile seqname
     global method alnfile alnseqid alntype nmodel
+    global routine_homol routine_fhomol
 
     #  Open the file
     set file [open $filename w]
@@ -336,12 +344,12 @@ proc WriteControl filename {
         set segfile [format "%s.seg" $seqname]
         puts $file [format "SET SEGFILE = '%s'" $segfile]
 
-        puts $file "CALL ROUTINE = 'full_homol'"
+        puts $file [format "CALL ROUTINE = '%s'" $routine_fhomol]
     }  else {
         puts $file [format "SET SEQUENCE = '%s'" $alnseqid]
         puts $file [format "SET ALNFILE = '%s'" $alnfile]
 
-        puts $file "CALL ROUTINE = 'homol'"
+        puts $file [format "CALL ROUTINE = '%s'" $routine_homol]
     }
 
     #  Close the file
@@ -355,9 +363,10 @@ proc WriteControl filename {
 #   Initialise the window manager, set up the name bar, etc.
 #
 #   22.08.94 Original   By: ACRM
+#   27.01.95 V1.1
 #
 proc InitWM { } {
-    wm title . "Modeller Inteface V1.0 (c) 1995, Dr. Andrew C.R. \
+    wm title . "Modeller Inteface V1.1 (c) 1995, Dr. Andrew C.R. \
 Martin, UCL"
     wm iconname . "Modeller"
 }
@@ -393,13 +402,21 @@ proc InitVariables { } {
 #
 #  22.08.95 Original    By: ACRM
 #  24.08.95 Gets runname from $seqname rather than just modeller
+#  24.10.95 If it's full homology modelling the runname is got
+#           from the sequence id in the alignment file rather than
+#           the pir filename (which is probably blank)
 #
 proc quit button {
     global method segfile seqname pirfile
-
-    set seqname [lindex [split $pirfile .] 0 ]
+    global alnseqid
 
     if {$button == "run"} { 
+        if {$method == "full"} {
+            set seqname [lindex [split $pirfile .] 0 ]
+        } else {
+            set seqname $alnseqid
+        }
+
         set controlfile [format "%s_%s.top" $seqname [pid]]
         WriteControl $controlfile
         if {$method == "full"} {
@@ -429,7 +446,9 @@ proc RunModeller file {
 ##########################################################################
 #   proc BuildSegFile file
 #   ----------------------
-#   Run the Modeller program using the control file we have generated
+#   Run the pdb2seg to create a seg alignment file for a set of PDB codes.
+#   This is used for full homology modelling where an alignment hasn't
+#   been specified.
 #
 #   22.08.95 Original   By: ACRM
 #

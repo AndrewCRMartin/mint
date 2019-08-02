@@ -3,8 +3,8 @@
 #   Program:    modeller interface
 #   File:       local.tcl
 #   
-#   Version:    V1.0
-#   Date:       22.08.95
+#   Version:    V1.1
+#   Date:       24.10.95
 #   Function:   Set up local stuff for this installation of Modeller
 #   
 #   Copyright:  (c) Dr. Andrew C. R. Martin 1995
@@ -47,23 +47,33 @@
 #   Revision History:
 #   =================
 #   V1.0  22.08.95 Original    By: ACRM
+#   V1.1  24.10.95 Moved name of modeller routines here (homology
+#                  modelling has a different name in the MSI version c.f.
+#                  the academic version)
 #
 #*************************************************************************
-# Set the ecalc path for running the main program
-# -----------------------------------------------
-set modeller "/usr/msi/quanta4.1/modeler/exec/runmod"
+# Set the names of the programs to run
+# ------------------------------------
+#set modeller "/usr/msi/quanta4.1/modeler/exec/runmod"
+set modeller "/usr/user/modeller/bin/mod12"
 set pdbseg   "$env(MODELLER)/pdb2seg"
 
 ##########################################################################
-# Add the ecalc directory to the execute path
-# -------------------------------------------
-# set auto_path "~amartin/modeller $auto_path"
-
-##########################################################################
 # Data directories
+# ----------------
 set pdbdir     /data/pdb/
 set pdbext     .pdb
 set pdbprep    p
+
+#########################################################################
+# Set the names of the routines within MODELLER to do the modelling
+# -----------------------------------------------------------------
+# routine_homol is for modelling where an alignment has been specified
+# (MSI calls this "homol")
+set routine_homol "model"
+# routine_fhomol is for full homology modelling where no alignment has
+# been specified
+set routine_fhomol "full_homol"
 
 #########################################################################
 # Define colours for the Run and Quit buttons. Change these for B&W
