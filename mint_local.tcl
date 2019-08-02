@@ -3,11 +3,11 @@
 #   Program:    modeller interface
 #   File:       local.tcl
 #   
-#   Version:    V3.0
-#   Date:       03.10.96
+#   Version:    V3.2
+#   Date:       24.11.06
 #   Function:   Set up local stuff for this installation of Modeller
 #   
-#   Copyright:  (c) Dr. Andrew C. R. Martin 1995-6
+#   Copyright:  (c) Dr. Andrew C. R. Martin 1995-2006
 #   Author:     Dr. Andrew C. R. Martin
 #   Address:    Biomolecular Structure & Modelling Unit,
 #               Department of Biochemistry & Molecular Biology,
@@ -15,8 +15,7 @@
 #               Gower Street,
 #               London.
 #               WC1E 6BT.
-#   Phone:      (Home) +44 (0)1372 275775
-#   EMail:      INTERNET: martin@biochem.ucl.ac.uk
+#   EMail:      andrew@bioinf.org.uk
 #               
 #*************************************************************************
 #
@@ -55,6 +54,8 @@
 #   V1.3  10.11.95 Skipped
 #   V2.0           SKIPPED
 #   V3.0  03.10.96 New for Modeller-3
+#   V3.1           SKIPPED
+#   V3.2           SKIPPED
 #
 #*************************************************************************
 # Set the names of the programs to run

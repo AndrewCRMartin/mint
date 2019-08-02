@@ -3,12 +3,12 @@
    Program:    pdb2seg
    File:       pdb2seg.c
    
-   Version:    V1.1
-   Date:       27.10.95
+   Version:    V1.3
+   Date:       20.09.01
    Function:   Create a seg alignment file for Modeller from a set of
                PDB codes
    
-   Copyright:  (c) Dr. Andrew C. R. Martin 1995
+   Copyright:  (c) Dr. Andrew C. R. Martin 1995-2001
    Author:     Dr. Andrew C. R. Martin
    Address:    Biomolecular Structure & Modelling Unit,
                Department of Biochemistry & Molecular Biology,
@@ -52,6 +52,9 @@
    =================
    V1.0  23.08.95 Original
    V1.1  27.10.05 Looks first in the current directory for PDB files
+   V1.2  22.10.96 Removes : from COMPND fields as these mess up the
+                  fields in the .seg file
+   V1.3  20.09.01 Initialise nres and nchain variables
 
 *************************************************************************/
 /* Includes
@@ -172,6 +175,7 @@ int main(int argc, char **argv)
    Reads the required header information out of a PDB file
 
    23.08.95 Original    By: ACRM
+   22.10.96 Replaces : with space in name and source fields
 */
 void ReadPDBHeader(FILE *fp, char *name, char *source, 
                    REAL *resolution, REAL *rfactor, int *type)
@@ -194,6 +198,11 @@ void ReadPDBHeader(FILE *fp, char *name, char *source,
          strcpy(name,buffer+10);
          for(i=strlen(name)-1; i>0 && name[i] == ' '; i--);
          name[i+1] = '\0';
+         for(i=0; name[i]; i++)
+         {
+            if(name[i]==':')
+               name[i] = ' ';
+         }
          GotName = TRUE;
       }         
       else if(!GotSource && !strncmp(buffer, "SOURCE", 6))
@@ -202,6 +211,11 @@ void ReadPDBHeader(FILE *fp, char *name, char *source,
          strcpy(source,buffer+10);
          for(i=strlen(source)-1; i>0 && source[i] == ' '; i--);
          source[i+1] = '\0';
+         for(i=0; source[i]; i++)
+         {
+            if(source[i]==':')
+               source[i] = ' ';
+         }
          GotSource = TRUE;
       }
       else if(!strncmp(buffer, "ATOM  ",6))
@@ -492,11 +506,14 @@ void WriteString(FILE *out, char *string, int maxlen)
    Prints a usage message
 
    23.08.95 Original    By: ACRM
+   22.10.96 V1.2
+   20.09.01 V1.3
 */
 void Usage(void)
 {
-   fprintf(stderr,"\npdb2seg (c) 1995 Dr. Andrew C.R. Martin, UCL\n");
-   fprintf(stderr,"Usage: pdb2seg [-f] <pirfile> <pdbprep> <pdbdir> \
+   fprintf(stderr,"\npdb2seg V1.3 (c) 1995 Dr. Andrew C.R. Martin, \
+UCL\n");
+   fprintf(stderr,"Usage: pdb2seg [-f] <pirfile> <pdbdir> <pdbprep> \
 <pdbext> <outfile> <code> [<code> .... ]\n");
    fprintf(stderr,"       -f        Create full sequence file\n");
    fprintf(stderr,"       <pirfile> A standard PIR file\n");
@@ -523,6 +540,7 @@ codes and a PIR file\n");
    required in the .seg file.
 
    23.08.95 Original    By: ACRM
+   20.09.01 Initialise nchain and nres to zero
 */
 void ProcessPIRFile(FILE *out, char *pirfile)
 {
@@ -532,8 +550,8 @@ void ProcessPIRFile(FILE *out, char *pirfile)
         idbuff[MAXBUFF],
         *id,
         *idp;
-   int  nchain,
-        nres,
+   int  nchain = 0,
+        nres = 0,
         i;
    BOOL punct,
         error;

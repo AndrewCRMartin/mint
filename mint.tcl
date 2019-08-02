@@ -4,11 +4,11 @@
 #   Program:    MINT (Modeller INTerface)
 #   File:       mint.tcl
 #   
-#   Version:    V3.1
-#   Date:       26.01.98
+#   Version:    V3.2
+#   Date:       24.11.06
 #   Function:   Write a control file for Modeller
 #   
-#   Copyright:  (c) Dr. Andrew C. R. Martin 1995-8
+#   Copyright:  (c) Dr. Andrew C. R. Martin 1995-2006
 #   Author:     Dr. Andrew C. R. Martin
 #   Address:    Biomolecular Structure & Modelling Unit,
 #               Department of Biochemistry & Molecular Biology,
@@ -16,9 +16,7 @@
 #               Gower Street,
 #               London.
 #               WC1E 6BT.
-#   Phone:      (Home) +44 (0)1372 275775
-#               (Work) +44 (0)171 387 7050 X 3284
-#   EMail:      martin@biochem.ucl.ac.uk
+#   EMail:      andrew@bioinf.org.uk
 #               
 #*************************************************************************
 #
@@ -61,6 +59,9 @@
 #   V3.0  03.10.96 New version for MODELLER-3 
 #   V3.1  26.01.98 Reads correct topology library when hydrogens switched
 #                  on. (N.B. Is MODELLER-4 compatible)
+#   V3.2  24.11.06 Refinement levels in MODELLER8 have changed from
+#                  nothing/refine1/refine2 to nothing/refine1/refine_2
+#                  Fix by Vincenzo De Leo <Vincenzo.Deleo@ca.infn.it>
 #
 #*************************************************************************
 
@@ -367,7 +368,7 @@ proc WriteControl filename {
 #    puts $file [format "SET FINISH_METHOD = '%s'" $refinement]
 
     if {$refinement == 2} {
-        puts $file "SET MD_LEVEL = 'refine2'"
+        puts $file "SET MD_LEVEL = 'refine_2'"
     } elseif {$refinement == 1} {
         puts $file "SET MD_LEVEL = 'refine1'"
     } elseif {$refinement == 0} {
@@ -437,9 +438,10 @@ proc WriteControl filename {
 #   24.10.95 V1.1
 #   10.11.95 V1.3
 #   03.10.96 V3.0
+#   24.11.06 V3.2
 #
 proc InitWM { } {
-    wm title . "Modeller Inteface V3.0 (c) 1995-6, Dr. Andrew C.R. \
+    wm title . "Modeller Inteface V3.2 (c) 1995-2006, Dr. Andrew C.R. \
 Martin, UCL"
     wm iconname . "Modeller"
 }
