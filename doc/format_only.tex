@@ -1,0 +1,32 @@
+\documentclass[12pt]{article}
+\usepackage{a4}
+\newcommand{\appsection}[1]{\par\vspace{1ex}\noindent{\bfseries #1}\par\noindent}
+
+\title{Modeller PIR Format}
+\author{Prof. Andrew C.R. Martin, UCL}
+\date{2022}
+
+\begin{document}
+\maketitle
+
+\input{format_appendices}
+
+
+\section{Frequently Asked Questions}
+
+{\bfseries 1. Q:} When doing full homology modelling using a PDB file
+in the current directory, why does MODELLER crash with a message of
+the form:
+\begin{verbatim}
+TOP______>    84  262 READ_ALIGNMENT FILE = SEGFILE, ALIGN_CODES = KNOWNS
+rdseqpd_E> too many residues
+recover__>  MODELLER_STATUS  >=  STOP_STATUS:   1  1
+\end{verbatim}
+
+\noindent{\bfseries A:} MODELLER is actually telling you that it cannot find
+the PDB file you specified for the template! The most probably reason
+for this is that the filenaming convention you have used for the file
+in the current directory doesn't match that in the PDB.
+\vspace{1em}
+
+\end{document}

@@ -70,8 +70,7 @@ cp *.c *.tcl            $MINT
 
 # Copy documentation into directory
 cp INSTALL              $MINT
-cp mint.tex             $MINT
-cp mint.pdf             $MINT
+cp -R doc               $MINT
 cp COPYING.DOC          $MINT
 
 # Copy distribution specials into directory
